@@ -8,9 +8,10 @@ const { createConnection } = require('@app-core/mongoose');
 
 const canLogEndpointInformation = process.env.CAN_LOG_ENDPOINT_INFORMATION;
 
-createConnection({
-  uri: process.env.MONGO_URI,
-});
+// for reqline we dont need to connect to any database
+// createConnection({
+//   uri: process.env.MONGO_URI,
+// });
 
 const server = createServer({
   port: process.env.PORT,
@@ -18,8 +19,11 @@ const server = createServer({
   enableCors: true,
 });
 
-const ENDPOINT_CONFIGS = [];
-
+const ENDPOINT_CONFIGS = [
+  {
+    path: './endpoints/reqline/',
+  },
+];
 function logEndpointMetaData(endpointConfigs) {
   const endpointData = [];
   const storageDirName = './endpoint-data';
